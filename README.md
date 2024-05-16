@@ -1,1 +1,1 @@
-# RockPaperScissor
+Simple RockPaperScissor made with Javascript
