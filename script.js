@@ -1,3 +1,5 @@
+//You're working on step 3
+
 let humanScore = 0;
 let computerScore = 0;
 
@@ -6,9 +8,9 @@ function playGame() {
     // humanScore = 0;
     // computerScore = 0;
 
-    while (humanScore < 5 && computerScore < 5) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
+    // while (humanScore < 5 && computerScore < 5) {
+    //     playRound(getHumanChoice(), getComputerChoice());
+    // }
 
     console.log('Game Over!');
 }
