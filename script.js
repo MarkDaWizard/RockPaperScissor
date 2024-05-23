@@ -2,56 +2,57 @@ let humanScore = 0;
 let computerScore = 0;
 
 
+function playGame() {
+    // humanScore = 0;
+    // computerScore = 0;
 
-function getComputerChoice()
-{
+    while (humanScore < 5 && computerScore < 5) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+
+    console.log('Game Over!');
+}
+
+
+
+function getComputerChoice() {
     let seedNum = Math.random();
 
-    if (seedNum <= 0.33)
-    {
+    if (seedNum <= 0.33) {
         return "rock";
     }
-    else if (seedNum >= 0.66)
-    {
+    else if (seedNum >= 0.66) {
         return "paper";
     }
-    else
-    {
+    else {
         return "scissor";
     }
 }
 
-function getHumanChoice()
-{
+function getHumanChoice() {
     let humanInput = prompt("Rock, Paper or Scissor?", "rock");
     let humanChoice = humanInput.toLowerCase();
     return humanChoice;
 }
 
-function playRound(humanChoice, computerChoice)
-{
-    if (humanChoice == computerChoice)
-    {
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice == computerChoice) {
         console.log("Tie!");
     }
-    else if (humanChoice == "rock" && computerChoice =="paper"
-            || humanChoice == "paper" && computerChoice == "scissor"
-            || humanChoice == "scissor" && computerChoice == "rock")
-    {
+    else if (humanChoice == "rock" && computerChoice == "paper"
+        || humanChoice == "paper" && computerChoice == "scissor"
+        || humanChoice == "scissor" && computerChoice == "rock") {
         console.log("You lose!");
         computerScore++;
     }
-    else 
-    {
+    else {
         console.log("You win!");
         humanScore++;
     }
 
-    console.log("Current score is " + humanScore + " for you & " + 
-                computerScore + " for computer");
+    console.log("Current score is " + humanScore + " for you & " +
+        computerScore + " for computer");
 }
 
-while (humanScore < 5 && computerScore < 5)
-{
-    playRound(getHumanChoice(),getComputerChoice());
-}
+playGame();
+
