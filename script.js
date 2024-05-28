@@ -1,29 +1,20 @@
-//You're working on step 3
-
+//ROCK PAPER SCISSOR
 let humanScore = 0;
 let computerScore = 0;
 
+let humanScoreDisplay = document.getElementById("humanScore");
+let computerScoreDisplay = document.getElementById("computerScore");
+let resultDisplay = document.getElementById("resultDisplay");
 
-function playGame() {
-    // humanScore = 0;
-    // computerScore = 0;
-
-    // while (humanScore < 5 && computerScore < 5) {
-    //     playRound(getHumanChoice(), getComputerChoice());
-    // }
-
-    console.log('Game Over!');
-}
-
-
+addListenerToButtons();
 
 function getComputerChoice() {
     let seedNum = Math.random();
 
-    if (seedNum <= 0.33) {
+    if (seedNum <= 0.3333) {
         return "rock";
     }
-    else if (seedNum >= 0.66) {
+    else if (seedNum >= 0.6666) {
         return "paper";
     }
     else {
@@ -31,30 +22,76 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    let humanInput = prompt("Rock, Paper or Scissor?", "rock");
-    let humanChoice = humanInput.toLowerCase();
-    return humanChoice;
+//Update the result display after each rounds, showing choices and scores
+function updateResult(victor, computerChoice, humanChoice) {
+
+    switch (victor) {
+        case "none":
+            resultDisplay.textContent = "Tie!";
+            break;
+
+        case "computer":
+            resultDisplay.textContent = " " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) +
+                " beats " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) + "! Computer win this round!";
+            computerScore++;
+            computerScoreDisplay.textContent = "Computer Score: " + computerScore;
+            break;
+
+        case "human":
+            resultDisplay.textContent = " " + humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1) +
+                " beats " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + "! Human win this round!";
+            humanScore++;
+            humanScoreDisplay.textContent = "Human Score: " + humanScore;
+            break;
+
+        default:
+            console.log("Invalid victor");
+            break;
+
+    }
+    if (humanScore >= 5) {
+        resultDisplay.textContent = "GAME OVER! HUMAN WIN!";
+        removeButtons();
+    }
+    else if (computerScore >= 5) {
+        resultDisplay.textContent = "GAME OVER! COMPUTER WIN!";
+        removeButtons();
+    }
 }
 
-function playRound(humanChoice, computerChoice) {
+//Remove all buttons once there's a victor
+function removeButtons() {
+    let buttonContainer = document.querySelector(".buttonContainer");
+    buttonContainer.remove();
+}
+
+//Start a single round upon a button click
+function playRound() {
+
+    let humanChoice = this.toLowerCase();
+    let computerChoice = getComputerChoice();
+
     if (humanChoice == computerChoice) {
-        console.log("Tie!");
+        updateResult("none", computerChoice, humanChoice);
     }
     else if (humanChoice == "rock" && computerChoice == "paper"
         || humanChoice == "paper" && computerChoice == "scissor"
         || humanChoice == "scissor" && computerChoice == "rock") {
-        console.log("You lose!");
-        computerScore++;
+        updateResult("computer", computerChoice, humanChoice);
     }
     else {
-        console.log("You win!");
-        humanScore++;
+        updateResult("human", computerChoice, humanChoice);
     }
-
-    console.log("Current score is " + humanScore + " for you & " +
-        computerScore + " for computer");
 }
 
-playGame();
+
+function addListenerToButtons() {
+    let playButton = document.getElementsByClassName("btn");
+
+    for (let button of playButton) {
+        button.addEventListener("click", playRound.bind(button.id));
+        console.log("adding listener");
+    }
+}
+
 
